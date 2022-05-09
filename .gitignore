@@ -1,2 +1,6 @@
 node_modules
 dist
+.dev.env
+.test.env
+.beta.env
+.release.env
