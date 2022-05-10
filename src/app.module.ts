@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { BoardsModule } from './boards/boards.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { typeORMConfig } from './configs/typeorm.config';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -9,16 +10,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       envFilePath: '.' + process.env.NODE_ENV + '.env',
       ignoreEnvFile: false,
     }),
-    TypeOrmModule.forRoot({
-      type: 'mariadb',
-      host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT),
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      synchronize: process.env.SYNCHRONIZE === 'true',
-      logging: process.env.LOGGING === 'true',
-    }),
+    // TypeOrmModule.forRoot({
+    //   type: 'mariadb',
+    //   host: process.env.DB_HOST,
+    //   port: parseInt(process.env.DB_PORT),
+    //   username: process.env.DB_USERNAME,
+    //   password: process.env.DB_PASSWORD,
+    //   database: process.env.DB_NAME,
+    //   synchronize: process.env.SYNCHRONIZE === 'true',
+    //   logging: process.env.LOGGING === 'true',
+    // }),
+    TypeOrmModule.forRoot(typeORMConfig),
     BoardsModule,
   ],
 })
