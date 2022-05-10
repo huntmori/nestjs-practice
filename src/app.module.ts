@@ -2,9 +2,9 @@ import { MariaDbConfigModule } from './configs/database/maridb.config.module';
 import { MariaDBConfigService } from './configs/database/mariadb.config.service';
 import { Module } from '@nestjs/common';
 import { BoardsModule } from './boards/boards.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { typeORMConfig } from './configs/typeorm.config';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
