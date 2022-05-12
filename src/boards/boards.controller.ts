@@ -41,9 +41,8 @@ export class BoardsController {
   }
 
   @Get('/:id')
-  public getBoardById(@Param('id') id: string) {
-    // return this.boardsService.getBoardById(id);
-    throw new NotImplementedException();
+  public getBoardById(@Param('id') id: number) {
+    return this.boardsService.getBoardById(id);
   }
 
   @Delete('/:id')

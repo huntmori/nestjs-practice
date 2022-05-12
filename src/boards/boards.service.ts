@@ -16,4 +16,14 @@ export class BoardsService {
     @InjectRepository(BoardRepository)
     private boardRepository: BoardRepository,
   ) {}
+
+  async getBoardById(id: number): Promise<Board> {
+    const found = this.boardRepository.findOne(id);
+
+    if (!found) {
+      throw new NotFoundException(`Can't find Board with id ${id}`);
+    }
+
+    return found;
+  }
 }
