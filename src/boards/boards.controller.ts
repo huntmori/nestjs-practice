@@ -1,12 +1,14 @@
+import { Board } from './entities/board.entity';
+import { BoardStatus } from './enum/board-status.enum';
 import { BoardStatusValidationPipe } from './pipe/board-status-validation.pipe';
 import { CreateBoardDto } from './dto/createBoard.dto';
-import { Board, BoardStatus } from './boards.model';
 import { BoardsService } from './boards.service';
 import {
   Body,
   Controller,
   Delete,
   Get,
+  NotImplementedException,
   Param,
   Patch,
   Post,
@@ -25,7 +27,8 @@ export class BoardsController {
 
   @Get()
   public getAllBoard(): Board[] {
-    return this.boardsService.getAllBoards();
+    // return this.boardsService.getAllBoards();
+    throw new NotImplementedException();
   }
 
   @Post()
@@ -33,17 +36,20 @@ export class BoardsController {
   public createBoard(@Body() createBoardDto: CreateBoardDto): Board {
     console.log('title', createBoardDto.title);
     console.log('description', createBoardDto.description);
-    return this.boardsService.createBoard(createBoardDto);
+    // return this.boardsService.createBoard(createBoardDto);
+    throw new NotImplementedException();
   }
 
   @Get('/:id')
   public getBoardById(@Param('id') id: string) {
-    return this.boardsService.getBoardById(id);
+    // return this.boardsService.getBoardById(id);
+    throw new NotImplementedException();
   }
 
   @Delete('/:id')
   deleteBoard(@Param('id') id: string): void {
-    this.boardsService.deleteBoard(id);
+    // this.boardsService.deleteBoard(id);
+    throw new NotImplementedException();
   }
 
   @Patch('/:id/status')
@@ -51,6 +57,7 @@ export class BoardsController {
     @Param('id') id: string,
     @Body('status', BoardStatusValidationPipe) status: BoardStatus,
   ) {
-    return this.boardsService.updateBoardStatus(id, status);
+    // return this.boardsService.updateBoardStatus(id, status);
+    throw new NotImplementedException();
   }
 }
