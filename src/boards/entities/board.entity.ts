@@ -1,4 +1,4 @@
-import { BoardStatus } from './../boards.model';
+import { BoardStatus } from './../enum/board-status.enum';
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
