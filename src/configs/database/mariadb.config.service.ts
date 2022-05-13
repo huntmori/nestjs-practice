@@ -7,6 +7,7 @@ export class MariaDBConfigService implements TypeOrmOptionsFactory {
   constructor(private configService: ConfigService) {}
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
+    console.log('dirname:', __dirname);
     return {
       type: 'mariadb',
       username: this.configService.get<string>('DB_USERNAME'),
@@ -14,7 +15,8 @@ export class MariaDBConfigService implements TypeOrmOptionsFactory {
       port: this.configService.get<number>('DB_PORT'),
       host: this.configService.get<string>('DB_HOST'),
       database: this.configService.get<string>('DB_NAME'),
-      entities: [],
+      synchronize: this.configService.get<string>('SYNCHRONIZE') === 'true',
+      entities: [__dirname + '/../../**/entities/*.entity.{js,ts}'],
     };
   }
 }
