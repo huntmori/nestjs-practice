@@ -10,6 +10,7 @@ import {
   Get,
   NotImplementedException,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   UsePipes,
@@ -45,9 +46,8 @@ export class BoardsController {
   }
 
   @Delete('/:id')
-  deleteBoard(@Param('id') id: string): void {
-    // this.boardsService.deleteBoard(id);
-    throw new NotImplementedException();
+  deleteBoard(@Param('id', ParseIntPipe) id: number): void {
+    this.boardsService.deleteBoard(id);
   }
 
   @Patch('/:id/status')

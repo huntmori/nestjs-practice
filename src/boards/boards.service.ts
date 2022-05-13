@@ -41,4 +41,10 @@ export class BoardsService {
 
     return boardItem;
   }
+
+  async deleteBoard(id: number): Promise<void> {
+    const target = this.boardRepository.delete(id);
+
+    console.log('result', target);
+  }
 }
