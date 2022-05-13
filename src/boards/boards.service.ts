@@ -43,7 +43,7 @@ export class BoardsService {
   }
 
   async deleteBoard(id: number): Promise<void> {
-    const target = this.boardRepository.delete(id);
+    const target = await this.boardRepository.delete(id);
 
     console.log('result', target);
   }
