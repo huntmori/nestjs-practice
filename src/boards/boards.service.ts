@@ -26,4 +26,19 @@ export class BoardsService {
 
     return found;
   }
+
+  async createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
+    const { title, description } = createBoardDto;
+
+    const boardItem = this.boardRepository.create({
+      uuid: uuid(),
+      title,
+      description,
+      status: BoardStatus.PUBLIC,
+    });
+
+    await this.boardRepository.save(boardItem);
+
+    return boardItem;
+  }
 }

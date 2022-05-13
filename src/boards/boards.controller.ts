@@ -33,11 +33,10 @@ export class BoardsController {
 
   @Post()
   @UsePipes(ValidationPipe)
-  public createBoard(@Body() createBoardDto: CreateBoardDto): Board {
+  public createBoard(@Body() createBoardDto: CreateBoardDto): Promise<Board> {
     console.log('title', createBoardDto.title);
     console.log('description', createBoardDto.description);
-    // return this.boardsService.createBoard(createBoardDto);
-    throw new NotImplementedException();
+    return this.boardsService.createBoard(createBoardDto);
   }
 
   @Get('/:id')
