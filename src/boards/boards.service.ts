@@ -47,4 +47,12 @@ export class BoardsService {
 
     console.log('result', target);
   }
+
+  async updateBoardStatus(id: number, status: BoardStatus): Promise<Board> {
+    const item = await this.getBoardById(id);
+    item.status = status;
+    await this.boardRepository.save(item);
+
+    return item;
+  }
 }

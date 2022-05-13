@@ -52,10 +52,11 @@ export class BoardsController {
 
   @Patch('/:id/status')
   updateBoardStatus(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body('status', BoardStatusValidationPipe) status: BoardStatus,
   ) {
-    // return this.boardsService.updateBoardStatus(id, status);
-    throw new NotImplementedException();
+    console.log(`id : ${id}`);
+    console.log(`status : ${status}`);
+    return this.boardsService.updateBoardStatus(id, status);
   }
 }
