@@ -26,12 +26,6 @@ export class BoardsController {
   // }
   constructor(private boardsService: BoardsService) {}
 
-  @Get()
-  public getAllBoard(): Board[] {
-    // return this.boardsService.getAllBoards();
-    throw new NotImplementedException();
-  }
-
   @Post()
   @UsePipes(ValidationPipe)
   public createBoard(@Body() createBoardDto: CreateBoardDto): Promise<Board> {
@@ -58,5 +52,10 @@ export class BoardsController {
     console.log(`id : ${id}`);
     console.log(`status : ${status}`);
     return this.boardsService.updateBoardStatus(id, status);
+  }
+
+  @Get()
+  getAllBoard(): Promise<Board[]> {
+    return this.boardsService.getAllBoard();
   }
 }
