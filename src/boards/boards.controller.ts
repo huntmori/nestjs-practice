@@ -10,6 +10,7 @@ import {
   Get,
   NotImplementedException,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   UsePipes,
@@ -25,39 +26,36 @@ export class BoardsController {
   // }
   constructor(private boardsService: BoardsService) {}
 
-  @Get()
-  public getAllBoard(): Board[] {
-    // return this.boardsService.getAllBoards();
-    throw new NotImplementedException();
-  }
-
   @Post()
   @UsePipes(ValidationPipe)
-  public createBoard(@Body() createBoardDto: CreateBoardDto): Board {
+  public createBoard(@Body() createBoardDto: CreateBoardDto): Promise<Board> {
     console.log('title', createBoardDto.title);
     console.log('description', createBoardDto.description);
-    // return this.boardsService.createBoard(createBoardDto);
-    throw new NotImplementedException();
+    return this.boardsService.createBoard(createBoardDto);
   }
 
   @Get('/:id')
-  public getBoardById(@Param('id') id: string) {
-    // return this.boardsService.getBoardById(id);
-    throw new NotImplementedException();
+  public getBoardById(@Param('id') id: number) {
+    return this.boardsService.getBoardById(id);
   }
 
   @Delete('/:id')
-  deleteBoard(@Param('id') id: string): void {
-    // this.boardsService.deleteBoard(id);
-    throw new NotImplementedException();
+  deleteBoard(@Param('id', ParseIntPipe) id: number): void {
+    this.boardsService.deleteBoard(id);
   }
 
   @Patch('/:id/status')
   updateBoardStatus(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body('status', BoardStatusValidationPipe) status: BoardStatus,
   ) {
-    // return this.boardsService.updateBoardStatus(id, status);
-    throw new NotImplementedException();
+    console.log(`id : ${id}`);
+    console.log(`status : ${status}`);
+    return this.boardsService.updateBoardStatus(id, status);
+  }
+
+  @Get()
+  getAllBoard(): Promise<Board[]> {
+    return this.boardsService.getAllBoard();
   }
 }

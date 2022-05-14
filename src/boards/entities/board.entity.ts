@@ -6,6 +6,7 @@ export class Board extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
   uuid: string;
 
   @Column()
