@@ -11,9 +11,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     @InjectRepository(UserRepository)
     private userRepository: UserRepository,
   ) {
-    console.log('process.env', process.env);
+    // console.log('process.env', process.env);
     super({
-      secretOrKey: 'dsfjoi32978fbisbvos',
+      secretOrKey: process.env.PASSWORD_HASH_KEY,
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     });
   }
