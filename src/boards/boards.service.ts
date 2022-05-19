@@ -1,3 +1,4 @@
+import { User } from './../auth/entities/user.entity';
 import { Board } from './entities/board.entity';
 import { BoardRepository } from './board.repository';
 import { CreateBoardDto } from './dto/createBoard.dto';
@@ -27,19 +28,11 @@ export class BoardsService {
     return found;
   }
 
-  async createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
-    const { title, description } = createBoardDto;
-
-    const boardItem = this.boardRepository.create({
-      uuid: uuid(),
-      title,
-      description,
-      status: BoardStatus.PUBLIC,
-    });
-
-    await this.boardRepository.save(boardItem);
-
-    return boardItem;
+  async createBoard(
+    createBoardDto: CreateBoardDto,
+    user: User,
+  ): Promise<Board> {
+    return this.boardRepository.createBoard(createBoardDto, user);
   }
 
   async deleteBoard(id: number): Promise<void> {
