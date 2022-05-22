@@ -67,8 +67,8 @@ export class BoardsController {
   }
 
   @Get('/user/:id')
-  getTargetUserBoard(): Promise<Board[]> {
-    return null;
+  getTargetUserBoard(@Param('id', ParseIntPipe) id: number): Promise<Board[]> {
+    return this.boardsService.getTargetUserBoard(id);
   }
 
   @Get('/my')

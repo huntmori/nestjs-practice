@@ -1,3 +1,4 @@
+import { UserRepository } from './../auth/user.repository';
 import { User } from './../auth/entities/user.entity';
 import { Board } from './entities/board.entity';
 import { BoardRepository } from './board.repository';
@@ -16,6 +17,8 @@ export class BoardsService {
   constructor(
     @InjectRepository(BoardRepository)
     private boardRepository: BoardRepository,
+    @InjectRepository(UserRepository)
+    private userRepository: UserRepository,
   ) {}
 
   async getBoardById(id: number): Promise<Board> {
@@ -51,5 +54,10 @@ export class BoardsService {
 
   async getAllBoard(): Promise<Board[]> {
     return this.boardRepository.find();
+  }
+
+  async getTargetUserBoard(id: number): Promise<Board[]> {
+    const user = await this.userRepository.findOne(id);
+    return this.boardRepository.find({ user: user });
   }
 }
