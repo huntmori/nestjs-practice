@@ -58,6 +58,13 @@ export class BoardsService {
 
   async getTargetUserBoard(id: number): Promise<Board[]> {
     const user = await this.userRepository.findOne(id);
-    return this.boardRepository.find({ user: user });
+    return await this.boardRepository.find({ user: user });
+  }
+
+  async getThisUserBoard(user: User): Promise<Board[]> {
+    console.log('user', user);
+    const params = { user: user };
+    console.log('params', params);
+    return await this.boardRepository.find(params);
   }
 }
