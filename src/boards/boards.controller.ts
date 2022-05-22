@@ -65,4 +65,14 @@ export class BoardsController {
   getAllBoard(): Promise<Board[]> {
     return this.boardsService.getAllBoard();
   }
+
+  @Get('/user/:id')
+  getTargetUserBoard(): Promise<Board[]> {
+    return null;
+  }
+
+  @Get('/my')
+  getThisUserBoard(): Promise<Board[]> {
+    return null;
+  }
 }
