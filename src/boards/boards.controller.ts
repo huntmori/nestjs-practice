@@ -23,11 +23,6 @@ import { User } from 'src/auth/entities/user.entity';
 @Controller('boards')
 @UseGuards(AuthGuard())
 export class BoardsController {
-  // private boardsService: BoardsService;
-
-  // constructor(boardsService: BoardsService) {
-  //   this.boardsService = boardsService;
-  // }
   constructor(private boardsService: BoardsService) {}
 
   @Post()
@@ -47,13 +42,17 @@ export class BoardsController {
   }
 
   @Delete('/:id')
-  deleteBoard(@Param('id', ParseIntPipe) id: number): void {
-    this.boardsService.deleteBoard(id);
+  deleteBoard(
+    @Param('id', ParseIntPipe) id: number,
+    @GetUser() user: User,
+  ): void {
+    this.boardsService.deleteBoard(id, user);
   }
 
   @Patch('/:id/status')
   updateBoardStatus(
     @Param('id', ParseIntPipe) id: number,
+    @GetUser() user: User,
     @Body('status', BoardStatusValidationPipe) status: BoardStatus,
   ) {
     console.log(`id : ${id}`);
@@ -69,7 +68,7 @@ export class BoardsController {
   @Get('/user/my')
   getThisUserBoard(@GetUser() user: User): Promise<Board[]> {
     console.log('user', user);
-    console.log('/boards/my');
+    // console.log('/boards/my');
     return this.boardsService.getThisUserBoard(user);
   }
 

@@ -4,6 +4,7 @@ import { Board } from './entities/board.entity';
 import { BoardRepository } from './board.repository';
 import { CreateBoardDto } from './dto/createBoard.dto';
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   NotImplementedException,
@@ -38,10 +39,14 @@ export class BoardsService {
     return this.boardRepository.createBoard(createBoardDto, user);
   }
 
-  async deleteBoard(id: number): Promise<void> {
-    const target = await this.boardRepository.delete(id);
+  async deleteBoard(id: number, user: User): Promise<void> {
+    const target = await this.getBoardById(id);
 
-    console.log('result', target);
+    if (target.user !== user) {
+      throw new BadRequestException();
+    }
+    const result = await this.boardRepository.delete(id);
+    console.log('result', result);
   }
 
   async updateBoardStatus(id: number, status: BoardStatus): Promise<Board> {
@@ -62,9 +67,7 @@ export class BoardsService {
   }
 
   async getThisUserBoard(user: User): Promise<Board[]> {
-    console.log('user', user);
     const params = { user: user };
-    console.log('params', params);
     return await this.boardRepository.find(params);
   }
 }
