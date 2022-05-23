@@ -57,7 +57,7 @@ export class BoardsController {
   ) {
     console.log(`id : ${id}`);
     console.log(`status : ${status}`);
-    return this.boardsService.updateBoardStatus(id, status);
+    return this.boardsService.updateBoardStatus(id, user, status);
   }
 
   @Get()

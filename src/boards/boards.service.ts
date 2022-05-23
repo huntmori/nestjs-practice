@@ -49,8 +49,17 @@ export class BoardsService {
     console.log('result', result);
   }
 
-  async updateBoardStatus(id: number, status: BoardStatus): Promise<Board> {
+  async updateBoardStatus(
+    id: number,
+    user: User,
+    status: BoardStatus,
+  ): Promise<Board> {
     const item = await this.getBoardById(id);
+
+    if (item.user !== user) {
+      throw new BadRequestException();
+    }
+
     item.status = status;
     await this.boardRepository.save(item);
 
